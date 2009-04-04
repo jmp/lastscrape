@@ -13,25 +13,26 @@ where PROFILE is any Last.fm profile name. It checks how many pages the
 library has, then loops through all of them, gathering all the tracks
 you've listened.
 
-The program outputs a TSV-formatted list of the track data.
+The program outputs a TSV-formatted (tab-separated) list of the track data.
 
 Usage
 -----
 
 You can simply run:
 
-	./lastscrape.py USER
+	./lastscrape.py USER [OUTPUT_FILE]
+
+Output file is optional, but you may want to use it if your terminal encoding
+is not UTF-8.
 
 To save the track data in a file, you can run e.g.:
 
-	./lastscrape.py USER > trackdata
-
+	./lastscrape.py USER trackdata.tsv
 
 Bugs & suggestions
 ------------------
 
 Please send any patches, bugs and suggestions to <jarkkop@iki.fi>.
-
 
 Footnotes
 ---------
