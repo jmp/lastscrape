@@ -1,10 +1,6 @@
 #!/usr/bin/env python
-"""
-Lastscrape: pull audioscrobbler data from Last.fm
-Usage: lastscrape.py user
-Requires the BeautifulSoup module
-"""
-import time
+"""usage: lastscrape.py user"""
+import sys, time
 from urllib2 import urlopen
 from BeautifulSoup import BeautifulSoup
 
@@ -40,3 +36,11 @@ def scrape_data(user, request_delay=2):
 		if cur_page < num_pages:
 			time.sleep(request_delay)
 
+def main(*args):
+	if len(args) > 1:
+		scrape_data(args[1])
+	else:
+		print __doc__
+
+if __name__ == '__main__':
+	sys.exit(main(*sys.argv))
