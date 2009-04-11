@@ -10,6 +10,7 @@ from BeautifulSoup import BeautifulSoup
 sys.stdout = codecs.lookup('utf-8')[-1](sys.stdout)
 
 def parse_page(page):
+	"""Parse a page of recently listened tracks and return a list."""
 	soup = BeautifulSoup(urllib2.urlopen(page))
 	page_data = []
 	for row in soup.find('table', 'tracklist big').findAll('tr'):
@@ -20,6 +21,7 @@ def parse_page(page):
 	return page_data
 
 def parse_track(row):
+	"""Return a tuple containing track data."""
 	try:
 		artist, track = row.findAll('a', 'primary')
 		timestamp = row.find('td', 'border dateCell last')
@@ -32,13 +34,16 @@ def parse_track(row):
 		return (None, None, None)
 
 def fetch_tracks(user, request_delay=0.5):
-	num_pages = 1
+	"""Fetch all tracks from a profile page and return a list."""
 	url = 'http://last.fm/user/%s/library/recent' % user
 	soup = BeautifulSoup(urllib2.urlopen(url))
-	num_pages = int(soup.find('a', 'lastpage').contents[0]) + 1
+	try:
+		num_pages = int(soup.find('a', 'lastpage').contents[0])
+	except:
+		num_pages = 1
 	
 	all_data = []
-	for cur_page in range(1, num_pages):
+	for cur_page in range(1, num_pages + 1):
 		data = parse_page(url + '?page=' + str(cur_page))
 		all_data += data
 		if cur_page < num_pages:
