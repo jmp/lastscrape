@@ -23,10 +23,9 @@ def parse_track(row):
 	try:
 		track_info = row.find('td', 'subjectCell')
 		artist, track = track_info.findAll('a')
-		timestamp = row.find('abbr')
+		timestamp = row.find('abbr')['title']
 		artist = artist.contents[0].strip()
 		track = track.contents[0].strip()
-		timestamp = str(timestamp).split('"')[1].strip()
 		return (artist, track, timestamp)
 	except:
 		# Parsing failed
@@ -39,7 +38,7 @@ def fetch_tracks(user, request_delay=0.5):
 	soup = BeautifulSoup(urllib2.urlopen(url))
 	try:
 		num_pages = int(soup.find('a', 'lastpage').contents[0])
-	except:
+    except:
 		num_pages = 1
 	for cur_page in range(1, num_pages + 1):
 		tracks = parse_page(url + '?page=' + str(cur_page))
@@ -53,7 +52,7 @@ def main(*args):
 		# Print to stdout
 		print u'Artist\tTrack\tTimestamp'
 		for artist, track, timestamp in fetch_tracks(args[1]):
-			print u'%s\t%s\t%s' % (artist, track, timestamp)
+            print u'%s\t%s\t%s' % (artist, track, timestamp)
 	elif len(args) == 3:
 		# Write to file
 		f = codecs.open(args[2], 'w', 'utf-8')
