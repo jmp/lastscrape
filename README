@@ -3,7 +3,7 @@ Introduction
 
 Lastscrape is a quick hack for pulling listened tracks from any Last.fm
 profile library. It is written in Python and requires the BeautifulSoup
-module (version ).[1] Version 3.1 of it seems to be broken.[2]
+module (version 3.0.7a).[1] Version 3.1 of it seems to be broken.[2]
 
 How it works
 ------------
@@ -28,11 +28,6 @@ is not UTF-8.
 To save the track data in a file, you can run e.g.:
 
 	./lastscrape.py USER trackdata.tsv
-
-Bugs & suggestions
-------------------
-
-Please send any patches, bugs and suggestions to <jarkkop@iki.fi>.
 
 Footnotes
 ---------
